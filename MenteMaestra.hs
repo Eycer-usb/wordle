@@ -101,12 +101,3 @@ identificarVacas i j n palabra input ans =
             return aux
     else do
         return ans
-
-
--- identificarVacas i j n palabra input ans    | j < n && palabra!!i == input!!j && j/=i &&  ans!!j == '-'  = do {
---     let ( cabeza, _:cola ) = splitAt j ans
---     ;let aux = cabeza ++ "V" ++ cola
---     ;identificarTorosYVacas n (i+1) palabra input aux
--- }   |   j == n = do {
---     identificarVacas i (j+1) n palabra input ans
--- }
