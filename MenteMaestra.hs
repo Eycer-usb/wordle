@@ -1,3 +1,9 @@
+-- El Modo mente maestra consiste en 
+-- buscar aleatoriamente obtener una palabra del archivo
+-- Palabras.txt y durante 6 turnos termitirle al usuario
+-- decifrar la palabra mientras se le va indicando cuales
+-- de las letras de su adivinacion son toros y cuales son vacas
+
 module MenteMaestra
 (
     ejecutar
@@ -6,7 +12,8 @@ module MenteMaestra
 import System.IO
 import System.Random
 import Data.Char
-    
+
+-- Nombre del Archivo al que se recurre como diccionario
 archivo = "Palabras.txt";
 
 -- Se ejecuta el Modo Mente Maestra
@@ -63,7 +70,7 @@ palabraValida palabra = do
     let ans = elem palabra lista
     return ans
 
-
+-- Dado un string se le elimina el caracter \r en caso que lo tenga
 limpiarString str | '\r' `elem` str = init(str)
                   | not( '\r' `elem` str ) = str
 
@@ -74,6 +81,7 @@ listaDePalabras path = do
     let limpio = map limpiarString ln
     return limpio
 
+-- Dada una palabra retorna el string correspondiente a los toros y vacas
 identificarTorosYVacas n i palabra input ans =
     if i == n 
     then do
@@ -88,7 +96,8 @@ identificarTorosYVacas n i palabra input ans =
         auxiliar <- identificarVacas i 0 n palabra input ans
         identificarTorosYVacas n (i+1) palabra input auxiliar
 
-
+-- Dada una cadena de caracteres retorna el string con 
+-- unicamente las vacas correspondientes
 identificarVacas i j n palabra input ans =
     if (j < n && palabra!!i == input!!j && j/=i && ans!!j == '-' )
     then do
