@@ -1,0 +1,13 @@
+El Programa se compila con la orden siguiente
+
+$ ghc --make wordle
+
+Se ejecuta en los siguientes modos
+
+$ ./wordle mentemaestra
+$ ./wordle decifrador
+
+Link del Repositorio:
+
+
+Que lo Disfruten! XD
