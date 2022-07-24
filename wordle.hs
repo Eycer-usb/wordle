@@ -13,7 +13,7 @@ import Decifrador
 
 ejecutarModo modo
     | modo == [ "mentemaestra" ]    =   MenteMaestra.ejecutar
-    | modo == [ "decifrador" ]      =   Decifrador.ejecutar
+    | modo == [ "descifrador" ]      =   Decifrador.ejecutar
 
 bienvenido = putStrLn "\nBIENVENIDO A WORDLE!\n"
 

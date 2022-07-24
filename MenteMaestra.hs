@@ -42,7 +42,7 @@ obtenerPalabraAleatoria path = do
 -- inicia el juego en modo mente maestra
 mentemaestra 0 n palabra _ = do putStrLn ("Perdiste, la palabra era: " ++ palabra )
 mentemaestra i n palabra memoria = do 
-    putStr "DESCIFRADOR: "
+    putStr "DESCIFRADOR:  "
     hFlush stdout
     input <- getLine
     let upper = map toUpper input
@@ -85,6 +85,8 @@ listaDePalabras path = do
 identificarTorosYVacas n i palabra input ans =
     if i == n 
     then do
+        putStr "MENTEMAESTRA: "
+        hFlush stdout
         putStrLn ans
         return ans
     else if palabra!!i == input!!i

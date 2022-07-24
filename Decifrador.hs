@@ -39,7 +39,7 @@ obtenerPalabraAleatoria path = do
 ejecutar = do
     palabra <- obtenerPalabraAleatoria archivo
     palabras <- listaDePalabras archivo
-    putStrLn ("DECIFRADOR: " ++ palabra)
+    putStrLn ("DESCIFRADOR:  " ++ palabra)
     let n = 6
     modoDecifrador n "" palabra palabras 1.0
 
@@ -53,12 +53,16 @@ modoDecifrador n ans palabra palabras calificacion =
         input <- getLine
         let newAns = map toUpper input
         let newCalificacion = calificarRespuesta newAns
+        -- hFlush stdout
+        -- print palabras
         let (adivinacion, newPalabras) = (adivinarPalabra newAns palabra palabras)
+        -- hFlush stdout
+        -- print newPalabras
         if  newCalificacion > calificacion || length adivinacion <= 0 then do
             putStrLn "Tramposo"
             hFlush stdout
         else do
-            putStrLn ("DECIFRADOR: " ++ adivinacion)
+            putStrLn ("DESCIFRADOR:  " ++ adivinacion)
             hFlush stdout
             modoDecifrador (n-1) newAns adivinacion newPalabras newCalificacion
 
@@ -113,7 +117,7 @@ filtrarGuion p pos ans wd palabra = ((p `elem` (obtenerTorosYVacas ans wd) ) && 
 -- Si la palabra actual cumple con las caracteristicas expresadas por el usuario
 palabraValida  ::  String -> String -> Int -> String -> String -> String -> Bool
 palabraValida [] [] _ _ _ _ = True
-palabraValida (a:as) (p:ps) pos palabra ans wd |   a == 'T' = ( filtrarToro p pos palabra ) && (palabraValida as ps (pos + 1) palabra ans wd )
+palabraValida (a:as) (p:ps) pos palabra ans wd      |   a == 'T' = ( filtrarToro p pos palabra ) && (palabraValida as ps (pos + 1) palabra ans wd )
                                                     |   a == 'V' = ( filtrarVaca p pos palabra ) && (palabraValida as ps (pos + 1) palabra ans wd )
                                                     |   a == '-' = ( filtrarGuion p pos ans wd palabra ) && (palabraValida as ps (pos + 1) palabra ans wd )
                                         
@@ -129,13 +133,3 @@ adivinarPalabra ans wd palabras = ( snd ( miHead (calificarYOrdenarLista (filtra
 
 miHead [] = (0.0,"")
 miHead (x:xs) = x
-
--- -- Se obtienen las letras que sean Toros vacas y guion al mismo tiempo
--- toroVacaYGuion ans wd = fst (unzip [ (x,y) | (x,y) <- (zip wd ans), y=='-', (any (\((a,b), (c,d)) -> a==c && a==x && b=='T' && d=='V'  ) [ (i,j) | i <- (zip wd ans), j <- (zip wd ans)]) ])
-
--- -- Obtenemos los elementos que son toros o vacas y - al mismo tiempo
--- obtenerNoRepetidos ans wd = fst (unzip [ (x,y) | (x,y) <- (zip wd ans), y=='-' && (any (\(a,b) -> ((a==x && b=='V') || (a==x && b=='T') && not( a `elem` (toroVacaYGuion ans wd) ) ) ) (zip wd ans) )  ])
-
-
--- -- Verifica si una palabra dada contiene o no caracteres repetidos que no se deben repetir
--- sinRepetidos ans palabra noRepetir = sum [ 1 | x <- [0..((length palabra) - 1)], y <- [0..((length palabra)-1)], x /= y, palabra!!x == palabra!!y, palabra!!x `elem` noRepetir ] == 0
